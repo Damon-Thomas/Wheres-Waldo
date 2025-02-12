@@ -1,13 +1,25 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const w = window.innerWidth;
-  let smaller = true;
-  console.log(w);
-  if (w > 600) {
-    smaller = false;
-  }
-  console.log(smaller);
+  const [smaller, setSmaller] = useState(true);
+
+  useEffect(() => {
+    function handleResize() {
+      const w = window.innerWidth;
+      if (w > 600) {
+        setSmaller(false);
+      } else {
+        setSmaller(true);
+      }
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function imageClickHandler(event: React.MouseEvent<HTMLAreaElement>) {
     const img = event.target;
