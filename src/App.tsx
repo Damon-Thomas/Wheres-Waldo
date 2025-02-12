@@ -9,8 +9,12 @@ function App() {
   }
   console.log(smaller);
 
-  function imageClickHandler() {
-    console.log("clicked");
+  function imageClickHandler(event: React.MouseEvent<HTMLAreaElement>) {
+    const img = event.target;
+    const rect = (img as HTMLImageElement).getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+    console.log("x", clickX, "y", clickY);
   }
 
   return (
@@ -27,10 +31,20 @@ function App() {
             width: smaller ? 3840 / 2 : 3840,
             height: smaller ? 2480 / 2 : 2480,
           }}
+          useMap="#imageMap"
           src="95f6a575616919.5c51a34aac3a9-bicubic.jpg"
           alt=""
           onClick={() => console.log("clicked")}
         />
+        <map name="imageMap">
+          <area
+            shape="rect"
+            coords={smaller ? "0,0,1920,1240" : "0,0,3840,2480"}
+            alt=""
+            onClick={imageClickHandler}
+            title="theImage"
+          />
+        </map>
       </div>
     </div>
   );
