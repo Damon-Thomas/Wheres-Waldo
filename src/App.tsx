@@ -3,14 +3,21 @@ import "./App.css";
 
 function App() {
   const [smaller, setSmaller] = useState(true);
+  const [selecter, setSelecter] = useState({ x: 0, y: 0, active: false });
+  const [width, setWidth] = useState(3840);
+  const [height, setHeight] = useState(2480);
 
   useEffect(() => {
     function handleResize() {
       const w = window.innerWidth;
       if (w > 600) {
         setSmaller(false);
+        setWidth(3840);
+        setHeight(2480);
       } else {
         setSmaller(true);
+        setWidth(1920);
+        setHeight(1240);
       }
     }
     handleResize();
@@ -24,9 +31,10 @@ function App() {
   function imageClickHandler(event: React.MouseEvent<HTMLAreaElement>) {
     const img = event.target;
     const rect = (img as HTMLImageElement).getBoundingClientRect();
+
     const clickX = event.clientX - rect.left;
-    const clickY = event.clientY - rect.top;
-    console.log("x", clickX, "y", clickY);
+    const clickY = event.clientY + height - rect.top;
+    setSelecter({ x: clickX, y: clickY, active: !selecter.active });
   }
 
   return (
@@ -36,6 +44,15 @@ function App() {
         className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable"
         style={{ scrollbarGutter: "stable" }}
       >
+        <div
+          className="absolute z-50 w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
+          style={{
+            top: selecter.y - 32,
+            left: selecter.x - 32,
+
+            display: selecter.active ? "block" : "none",
+          }}
+        ></div>
         <img
           className="block"
           style={{
@@ -46,7 +63,6 @@ function App() {
           useMap="#imageMap"
           src="95f6a575616919.5c51a34aac3a9-bicubic.jpg"
           alt=""
-          onClick={() => console.log("clicked")}
         />
         <map name="imageMap">
           <area
