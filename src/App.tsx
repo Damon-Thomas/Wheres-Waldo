@@ -47,9 +47,10 @@ function App() {
         <div
           className="absolute z-50 w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
           style={{
-            top: selecter.y - 32,
-            left: selecter.x - 32,
-
+            top: selecter.y - (smaller ? 25 : 50),
+            left: selecter.x - (smaller ? 25 : 50),
+            width: smaller ? 50 : 100,
+            height: smaller ? 50 : 100,
             display: selecter.active ? "block" : "none",
           }}
         ></div>
