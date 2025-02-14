@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Header from "./header/header";
 
 function App() {
   const [smaller, setSmaller] = useState(true);
@@ -35,17 +36,19 @@ function App() {
     const clickX = event.clientX - rect.left;
     const clickY = event.clientY + height - rect.top;
     setSelecter({ x: clickX, y: clickY, active: !selecter.active });
+    console.log("click", clickX, clickY);
   }
 
   return (
-    <div className="screenWindow h-screen w-screen flex flex-col justify-start items-center">
-      <div className="headerBar sticky bg-white h-8 w-full top-0"></div>
+    <div className="screenWindow h-screen w-screen flex flex-col justify-start items-center overflow-hidden">
+      <Header timer={0} smaller={smaller} />
+      {/* <div className="headerBar sticky bg-white h-8 w-full top-0"></div> */}
       <div
         className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable"
         style={{ scrollbarGutter: "stable" }}
       >
         <div
-          className="absolute z-50 w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
+          className="absolute  w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
           style={{
             top: selecter.y - (smaller ? 25 : 50),
             left: selecter.x - (smaller ? 25 : 50),
@@ -55,7 +58,7 @@ function App() {
           }}
         ></div>
         <img
-          className="block"
+          className="block z-0"
           style={{
             maxWidth: "none",
             width: smaller ? 3840 / 2 : 3840,

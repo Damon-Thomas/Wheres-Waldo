@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+.character {
+  @apply flex justify-center items-center border-4;
+}
+
+.easy {
+  @apply border-green-500;
+}
+
+.medium {
+  @apply border-yellow-500;
+}
+
+.hard {
+  @apply border-red-500;
+}
+
+.headerSection {
+  @apply shadow-[inset_0_-2px_8px_rgba(250,250,250,0.6)];
+}
