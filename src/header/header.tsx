@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./header.css";
+import easy from "./easyImg.png";
 
 export default function Header({
   timer,
@@ -41,7 +42,7 @@ export default function Header({
         >
           <ul className="grid grid-cols-3 items-stretch h-full w-full">
             <li className="character easy">
-              <div className="characterImage"></div>
+              <div className="characterImage">{easy}</div>
             </li>
             <li className="character medium">
               <div className="characterImage"></div>
