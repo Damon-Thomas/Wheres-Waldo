@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 .character {
-  @apply flex justify-center items-center border-4;
+  @apply flex justify-center items-center border-4 shadow-[2px_2px_4px_black];
+}
+
+.characterImage {
+  @apply bg-cover bg-center w-full h-full flex justify-center items-center text-8xl text-red-600 font-extrabold;
 }
 
 .easy {

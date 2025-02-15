@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./header.css";
-import easy from "./easyImg.png";
+import easy from "/easyImg.png";
+import medium from "/medImg.png";
+import hard from "/hardImg.png";
 
 export default function Header({
   timer,
@@ -11,6 +13,7 @@ export default function Header({
 }) {
   console.log("Header smaller:", smaller);
   const [open, setOpen] = useState(true);
+  const [foundArray, setFoundArray] = useState([false, false, false]);
   return (
     <div
       className="headerBar sticky bg-zinc-700 h-8 w-full top-0 grid items-stretch z-10 rounded-b-md shadow-md "
@@ -36,19 +39,37 @@ export default function Header({
           <p className="text-black ">Characters</p>
         </div>
         <div
-          className={`menu absolute bg-black z-50 h-16 w-full top-8 transition-transform duration-500 ease-in-out ${
+          className={`menu absolute bg-zinc-500  z-50 h-32 top-8 right-0 transition-transform duration-500 ease-in-out rounded-b-lg shadow-[0px_2px_4px_black] ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
+          style={{ width: "auto" }}
         >
-          <ul className="grid grid-cols-3 items-stretch h-full w-full">
-            <li className="character easy">
-              <div className="characterImage">{easy}</div>
+          <ul className="grid grid-cols-3 gap-4 min-w-max align-middle justify-center p-4 ">
+            <li className="character easy w-24 h-24">
+              <div
+                className="characterImage"
+                style={{ backgroundImage: `url(${easy})` }}
+              >
+                {" "}
+                {foundArray[0] ? "X" : ""}
+              </div>
             </li>
-            <li className="character medium">
-              <div className="characterImage"></div>
+            <li className="character medium w-24 h-24">
+              <div
+                className="characterImage"
+                style={{ backgroundImage: `url(${medium})` }}
+              >
+                {foundArray[1] ? "X" : ""}
+              </div>{" "}
             </li>
-            <li className="character hard">
-              <div className="characterImage"></div>
+            <li className="character hard w-24 h-24">
+              <div
+                className="characterImage"
+                style={{ backgroundImage: `url(${hard})` }}
+              >
+                {" "}
+                {foundArray[2] ? "X" : ""}
+              </div>{" "}
             </li>
           </ul>
         </div>
