@@ -47,31 +47,32 @@ export default function Header({
           style={{ width: "auto" }}
         >
           <ul className="grid grid-cols-3 gap-4 min-w-max align-middle justify-center p-4 ">
-            <li className="character easy w-24 h-24">
+            <li className={`character easy w-24 h-24 `}>
               <div
-                className="characterImage"
+                className={`characterImage relative`}
                 style={{ backgroundImage: `url(${easy})` }}
               >
-                {" "}
-                {foundArray[0] ? "X" : ""}
+                <div className="xText"> {foundArray[0] ? "X" : ""}</div>
+                <div className={`${foundArray[0] ? "overlay" : ""}`}></div>
               </div>
             </li>
-            <li className="character medium w-24 h-24">
+            <li className="character medium w-24 h-24 ">
               <div
-                className="characterImage"
+                className={`characterImage relative`}
                 style={{ backgroundImage: `url(${medium})` }}
               >
-                {foundArray[1] ? "X" : ""}
-              </div>{" "}
+                <div className="xText"> {foundArray[1] ? "X" : ""}</div>
+                <div className={`${foundArray[1] ? "overlay" : ""}`}></div>
+              </div>
             </li>
             <li className="character hard w-24 h-24">
               <div
-                className="characterImage"
+                className={`characterImage relative`}
                 style={{ backgroundImage: `url(${hard})` }}
               >
-                {" "}
-                {foundArray[2] ? "X" : ""}
-              </div>{" "}
+                <div className="xText"> {foundArray[2] ? "X" : ""}</div>
+                <div className={`${foundArray[2] ? "overlay" : ""}`}></div>
+              </div>
             </li>
           </ul>
         </div>
