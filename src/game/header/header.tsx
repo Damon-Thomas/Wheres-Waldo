@@ -3,6 +3,7 @@ import "./header.css";
 import easy from "/easyImg.png";
 import medium from "/medImg.png";
 import hard from "/hardImg.png";
+import Timer from "../timer/timer";
 
 export default function Header({
   timer,
@@ -23,21 +24,21 @@ export default function Header({
       }}
     >
       {!smaller ? (
-        <div className="title flex justify-center items-center headerSection">
-          <p className="text-black">Finding Fiasco</p>
+        <div className="title flex justify-center items-center headerSection ">
+          <p className="text-amber-300 text-xl font-bold">Finding Fiasco</p>
         </div>
       ) : (
         ""
       )}
-      <p className="timer flex justify-center items-center text-black border-x-[1px] border-black headerSection ">
-        {timer}
+      <p className="timer flex justify-center items-center text-amber-300 border-x-[1px] border-black headerSection ">
+        <Timer />
       </p>
       <div
         className="characterDropDown relative h-full w-full flex justify-center items-center headerSection cursor-pointer hover:bg-zinc-500"
         onClick={() => setOpen(!open)}
       >
         <div className="trigger">
-          <p className="text-black ">Characters</p>
+          <p className="text-amber-300 text-xl font-bold">Characters</p>
         </div>
         <div
           className={`menu absolute bg-zinc-500  z-50 h-32 top-8 right-0 transition-transform duration-500 ease-in-out rounded-b-lg shadow-[0px_2px_4px_black] ${
