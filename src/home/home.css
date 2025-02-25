@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+.navButton {
+  @apply w-2/3 md:w-1/2 h-30 md:h-40 flex justify-center items-center bg-white text-black text-2xl md:text-4xl font-extrabold rounded-2xl shadow-2xl;
+  transition: all 0.3s;
+}
+
+.navButton:hover {
+  @apply bg-amber-300 text-black;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.homeButton {
+  @apply flex justify-center items-center;
+}

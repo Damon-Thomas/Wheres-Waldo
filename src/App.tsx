@@ -9,12 +9,14 @@ import {
 } from "react-router-dom";
 import Home from "./home/homepage";
 import Leaderboard from "./leaderboard/leaderboard";
+import Rules from "./game/rules";
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <>
       <Route index element={<Home />} />
       <Route path="game" element={<Game />} />
+      <Route path="rules" element={<Rules />} />
       <Route path="leaderboard" element={<Leaderboard />} />
       <Route path="*" element={<NotFound />} />
     </>
