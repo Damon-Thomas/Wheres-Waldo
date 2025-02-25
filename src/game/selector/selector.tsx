@@ -27,21 +27,21 @@ export default function Selector({
     if (rightSide) {
       setLeft(smaller ? 46 : 96);
     } else {
-      setLeft(smaller ? -50 : -100);
+      setLeft(smaller ? -54 : -96);
     }
     if (bottom) {
       setTop(-4);
     } else {
-      setTop(smaller ? -146 : -176);
+      setTop(smaller ? -96 : -166);
     }
   }, [rightSide, bottom, smaller]);
 
   return (
     <div
-      className="selector absolute bg-slate-800 flex flex-col p-2 justify-center items-center rounded-lg"
+      className="selector absolute bg-amber-300 border-2 border-black flex flex-col p-1   justify-center items-center rounded-lg"
       style={{ left: left, top: top }}
     >
-      <ul className="selectorWrapper flex flex-col gap-2 justify-around items-center h-full w-full">
+      <ul className="selectorWrapper flex flex-col gap-1  justify-around items-center h-full w-full">
         <li className={`selectorCharacter w-full h-full`}>
           <div
             className="selectorCharacterImage relative w-full h-full"

@@ -8,7 +8,7 @@ export default function Home() {
           <span className="text-amber-300">F</span>inding{" "}
           <span className="text-amber-300">F</span>iasco
         </h1>
-        <h2 className="homeSubTitle text-center">
+        <h2 className="homeSubTitle text-center font-bold">
           Test your finding skills with this game!
         </h2>
       </div>
