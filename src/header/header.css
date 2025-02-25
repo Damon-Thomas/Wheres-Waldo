@@ -17,10 +17,6 @@
   @apply text-8xl text-red-600 font-extrabold z-30;
 }
 
-.xText2 {
-  @apply text-4xl  sm:text-8xl text-red-600 font-extrabold z-30;
-}
-
 .easy {
   @apply border-green-500;
 }

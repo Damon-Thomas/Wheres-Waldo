@@ -2,23 +2,49 @@ import easy from "/easyImg.png";
 import medium from "/medImg.png";
 import hard from "/hardImg.png";
 import "./selector.css";
+import { useEffect, useState } from "react";
 
 export default function Selector({
-  smaller,
   foundArray,
+  widthSetting,
+  heightSetting,
+  rightSide,
+  bottom,
+  smaller,
 }: {
-  smaller: boolean;
   foundArray: boolean[];
+  widthSetting: number;
+  heightSetting: number;
+  rightSide: boolean;
+  bottom: boolean;
+  smaller: boolean;
 }) {
-  const widthSetting = smaller ? 40 : 80;
-  const heightSetting = smaller ? 40 : 80;
+  const [left, setLeft] = useState(smaller ? 46 : 96);
+  const [top, setTop] = useState(-4);
+
+  useEffect(() => {
+    console.log("rightSide", rightSide, "bottom", bottom, "smaller", smaller);
+    if (rightSide) {
+      setLeft(smaller ? 46 : 96);
+    } else {
+      setLeft(smaller ? -50 : -100);
+    }
+    if (bottom) {
+      setTop(-4);
+    } else {
+      setTop(smaller ? -146 : -176);
+    }
+  }, [rightSide, bottom, smaller]);
 
   return (
-    <div className="selector bg-slate-800 flex flex-col p-2 justify-center items-center rounded-lg">
+    <div
+      className="selector absolute bg-slate-800 flex flex-col p-2 justify-center items-center rounded-lg"
+      style={{ left: left, top: top }}
+    >
       <ul className="selectorWrapper flex flex-col gap-2 justify-around items-center h-full w-full">
-        <li className={`selectorCharacter `}>
+        <li className={`selectorCharacter w-full h-full`}>
           <div
-            className="selectorCharacterImage z-10 relative"
+            className="selectorCharacterImage relative w-full h-full"
             style={{
               backgroundImage: `url(${easy})`,
               width: widthSetting,

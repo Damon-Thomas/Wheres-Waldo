@@ -13,7 +13,6 @@ export default function Header({
   smaller: boolean;
   foundArray: boolean[];
 }) {
-  console.log("Header smaller:", smaller);
   const [open, setOpen] = useState(true);
 
   return (
