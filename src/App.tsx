@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./header/header";
+import Selector from "./selector/selector";
 
 function App() {
   const [smaller, setSmaller] = useState(true);
   const [selecter, setSelecter] = useState({ x: 0, y: 0, active: false });
   const [width, setWidth] = useState(3840);
   const [height, setHeight] = useState(2480);
+  const [foundArray, setFoundArray] = useState([true, false, false]);
 
   useEffect(() => {
     function handleResize() {
@@ -41,22 +43,30 @@ function App() {
 
   return (
     <div className="screenWindow h-screen w-screen flex flex-col justify-start items-center overflow-hidden">
-      <Header timer={0} smaller={smaller} />
+      <Header timer={0} smaller={smaller} foundArray={foundArray} />
       {/* <div className="headerBar sticky bg-white h-8 w-full top-0"></div> */}
       <div
         className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable"
         style={{ scrollbarGutter: "stable" }}
       >
         <div
-          className="absolute  w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
+          className="selectorWrapper flex absolute"
           style={{
+            display: selecter.active ? "flex" : "none",
             top: selecter.y - (smaller ? 25 : 50),
             left: selecter.x - (smaller ? 25 : 50),
-            width: smaller ? 50 : 100,
-            height: smaller ? 50 : 100,
-            display: selecter.active ? "block" : "none",
           }}
-        ></div>
+        >
+          <div
+            className="  w-16 h-16   border-4  bg-gray-950/40 border-gray-950 rounded-xl"
+            style={{
+              width: smaller ? 50 : 100,
+              height: smaller ? 50 : 100,
+            }}
+          ></div>
+          <Selector smaller={smaller} foundArray={foundArray} />
+        </div>
+
         <img
           className="block z-0"
           style={{

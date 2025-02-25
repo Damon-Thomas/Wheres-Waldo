@@ -7,13 +7,15 @@ import hard from "/hardImg.png";
 export default function Header({
   timer,
   smaller,
+  foundArray,
 }: {
   timer: number;
   smaller: boolean;
+  foundArray: boolean[];
 }) {
   console.log("Header smaller:", smaller);
   const [open, setOpen] = useState(true);
-  const [foundArray, setFoundArray] = useState([false, false, false]);
+
   return (
     <div
       className="headerBar sticky bg-zinc-700 h-8 w-full top-0 grid items-stretch z-10 rounded-b-md shadow-md "

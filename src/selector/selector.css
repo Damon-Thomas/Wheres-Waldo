@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.selectorCharacter {
+  @apply flex justify-center items-center;
+}
+
+.selectorCharacterImage {
+  @apply bg-cover bg-center w-full h-full flex justify-center items-center text-5xl sm:text-6xl md:text-8xl text-red-600 font-extrabold rounded-lg;
+}
