@@ -1,7 +1,7 @@
 export default function Rules() {
   function handleClick() {
     const time = Date.now();
-    const game = fetch("/game", {
+    const game = fetch(`http://localhost:3000/api/game/${time}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

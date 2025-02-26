@@ -11,5 +11,5 @@ export default function Timer() {
     return () => clearInterval(time);
   }, [startTime]);
 
-  return <p className="text-xl font-bold">{`${currentTime} seconds`}</p>;
+  return <span className="text-xl font-bold">{`${currentTime} seconds`}</span>;
 }

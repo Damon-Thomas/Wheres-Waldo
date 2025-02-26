@@ -113,7 +113,7 @@ function Game() {
             height: smaller ? 2480 / 2 : 2480,
           }}
           useMap="#imageMap"
-          src="95f6a575616919.5c51a34aac3a9-bicubic.jpg"
+          src="/95f6a575616919.5c51a34aac3a9-bicubic.jpg"
           alt=""
         />
         <map name="imageMap">
