@@ -96,11 +96,13 @@ function Game() {
           >
             <Selector
               foundArray={foundArray}
+              setFoundArray={setFoundArray}
               widthSetting={selectorWidth}
               heightSetting={selectorHeight}
               rightSide={rightSide}
               bottom={bottom}
               smaller={smaller}
+              selecter={selecter}
             />
           </div>
         </div>

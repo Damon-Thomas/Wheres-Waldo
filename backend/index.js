@@ -1,6 +1,7 @@
-const express = require("express");
-const path = require("path");
-const cors = require("cors");
+import express from "express";
+import path from "path";
+import cors from "cors";
+import { submitCoord, gameStart } from "./controllers/gameController.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,13 +15,9 @@ app.get("/api/message", (req, res) => {
   res.json({ message: "Hello from Express!" });
 });
 
-app.post("/api/game/:id", (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  const { gameId } = req.body;
-  console.log(gameId, "test", req.body);
-  res.json({ gId: gameId, id: id, tester: "tester" });
-});
+app.post("/api/game/:id", gameStart);
+
+app.post("/api/game/coord/:id", submitCoord);
 
 // Serve React frontend in production
 if (process.env.NODE_ENV === "production") {
