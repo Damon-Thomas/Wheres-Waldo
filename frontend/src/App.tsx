@@ -15,7 +15,7 @@ const router = createBrowserRouter(
   createRoutesFromChildren(
     <>
       <Route index element={<Home />} />
-      <Route path="game" element={<Game />} />
+      <Route path="game/:id" element={<Game />} />
       <Route path="rules" element={<Rules />} />
       <Route path="leaderboard" element={<Leaderboard />} />
       <Route path="*" element={<NotFound />} />

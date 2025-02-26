@@ -1,4 +1,20 @@
 export default function Rules() {
+  function handleClick() {
+    const time = Date.now();
+    const game = fetch("/game", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ gameId: time }),
+    });
+    game.then((res) => {
+      if (res.status === 200) {
+        window.location.href = `/game/${time}`;
+      }
+    });
+  }
+
   return (
     <div className="rulesMain w-screen h-screen flex flex-col items-center justify-center gap-4 md:gap-8 bg-stone-700">
       <div className="homeHeader">
@@ -9,7 +25,7 @@ export default function Rules() {
       </div>
       <div className="homeBody flex flex-col items-center gap-4 md:gap-8 w-full">
         <div className="ruleContent flex flex-col gap-2 md:gap-4 justify-center items-center">
-          <a href="/game" className="homeButton w-full">
+          <a className="homeButton w-full" onClick={handleClick}>
             <button className="navButton ">Play Game</button>
           </a>
           <div className="instructionContent flex flex-col items-center justify-start gap-2 md:gap-4 w-2/3 md:w-1/2">
