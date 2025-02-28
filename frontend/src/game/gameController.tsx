@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
 import Header from "./header/header";
 import Selector from "./selector/selector";
 
@@ -15,6 +14,11 @@ function Game() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [rightSide, setRightSide] = useState(true);
   const [bottom, setBottom] = useState(true);
+
+  const scrollableRef = useRef<HTMLDivElement>(null);
+  let isDown = false;
+  let startX: number, startY: number, scrollLeft: number, scrollTop: number;
+  let isDragging = false;
 
   useEffect(() => {
     function handleResize() {
@@ -46,6 +50,11 @@ function Game() {
   }, []);
 
   function imageClickHandler(event: React.MouseEvent<HTMLAreaElement>) {
+    if (isDragging) {
+      isDragging = false;
+      return;
+    }
+
     const img = event.target;
     const rect = (img as HTMLImageElement).getBoundingClientRect();
 
@@ -72,13 +81,51 @@ function Game() {
     }
   }
 
+  function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    isDown = true;
+    isDragging = false;
+    if (scrollableRef.current) {
+      startX = e.pageX - scrollableRef.current.offsetLeft;
+      startY = e.pageY - scrollableRef.current.offsetTop;
+      scrollLeft = scrollableRef.current.scrollLeft;
+      scrollTop = scrollableRef.current.scrollTop;
+    }
+  }
+
+  function handleMouseLeave() {
+    isDown = false;
+  }
+
+  function handleMouseUp() {
+    isDown = false;
+  }
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!isDown) return;
+    e.preventDefault();
+    isDragging = true;
+    if (scrollableRef.current) {
+      const x = e.pageX - scrollableRef.current.offsetLeft;
+      const y = e.pageY - scrollableRef.current.offsetTop;
+      const walkX = (x - startX) * 2; // Adjust the scroll speed
+      const walkY = (y - startY) * 2; // Adjust the scroll speed
+      scrollableRef.current.scrollLeft = scrollLeft - walkX;
+      scrollableRef.current.scrollTop = scrollTop - walkY;
+    }
+  }
+
   return (
     <div className="screenWindow h-screen w-screen flex flex-col justify-start items-center overflow-hidden">
       <Header timer={0} smaller={smaller} foundArray={foundArray} />
       {/* <div className="headerBar sticky bg-white h-8 w-full top-0"></div> */}
       <div
-        className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable"
+        className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable cursor-pointer"
         style={{ scrollbarGutter: "stable" }}
+        ref={scrollableRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
       >
         <div
           className="selectorWrapper block absolute"
