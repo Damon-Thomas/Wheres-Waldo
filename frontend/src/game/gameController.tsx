@@ -145,6 +145,34 @@ function Game() {
         onMouseMove={handleMouseMove}
       >
         <div
+          className={`easyX ${foundArray[0] ? "show" : ""} `}
+          style={{
+            top: smaller ? 562 : 1125,
+            left: smaller ? 389 : 775,
+          }}
+        >
+          <p className="text-6xl md:text-8xl font-extrabold text-red-600">X</p>
+        </div>
+
+        <div
+          className={`medX ${foundArray[1] ? "show" : ""} `}
+          style={{
+            top: smaller ? 857 : 1700,
+            left: smaller ? 1350 : 2700,
+          }}
+        >
+          <p className="text-6xl md:text-8xl font-extrabold text-red-600">X</p>
+        </div>
+        <div
+          className={`hardX ${foundArray[2] ? "show" : ""} `}
+          style={{
+            top: smaller ? 380 : 780,
+            left: smaller ? 1160 : 2325,
+          }}
+        >
+          <p className="text-6xl md:text-8xl font-extrabold text-red-600">X</p>
+        </div>
+        <div
           className="selectorWrapper block absolute"
           style={{
             display: selecter.active ? "block" : "none",
@@ -170,6 +198,8 @@ function Game() {
               selecter={selecter}
               setFailureOverlay={setFailureOverlay}
             />
+
+            <div className="xText2"> </div>
           </div>
         </div>
         <img

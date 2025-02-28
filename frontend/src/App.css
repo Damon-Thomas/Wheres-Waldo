@@ -17,3 +17,17 @@
 .failureOverlay.show {
   opacity: 1; /* Set opacity to 1 when the overlay is shown */
 }
+
+.easyX,
+.medX,
+.hardX {
+  position: absolute;
+  z-index: 40;
+  display: none; /* Hide by default */
+}
+
+.easyX.show,
+.medX.show,
+.hardX.show {
+  display: block; /* Show when the condition is met */
+}
