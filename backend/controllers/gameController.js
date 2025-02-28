@@ -1,4 +1,10 @@
-import { createGame, foundCharacter } from "../models/dbQueries.js";
+import {
+  createGame,
+  foundCharacter,
+  gameOver,
+  getHighScores,
+} from "../models/dbQueries.js";
+import validator from "validator";
 
 const masterCoordsLarge = {
   Easy: { xmin: 775, xmax: 820, ymin: 1150, ymax: 1200 },
@@ -14,9 +20,11 @@ const masterCoordsSmall = {
 
 const gameStart = async (req, res) => {
   console.log("gameStart", req.body);
-  const { gameId } = req.body;
+  const { gameId, username } = req.body;
+  console.log("USERNAME", username);
+  const sanUsername = validator.escape(username);
   try {
-    const game = await createGame(gameId.toString());
+    const game = await createGame(gameId.toString(), sanUsername);
     console.log("game created", game);
     res.json(game);
   } catch (error) {
@@ -86,13 +94,34 @@ const submitCoord = async (req, res) => {
   console.log("didFind", didFind);
   if (didFind) {
     foundArray = await foundCharacter(character, time);
-    console.log("prisma result", foundArray);
-    return res.json({ foundArray, found: true });
+    const foundArrayOnly = foundArray.foundArray;
+    const username = foundArray.username;
+    const gameOverBool = foundArrayOnly.every((found) => found);
+    if (gameOverBool) {
+      console.log(
+        "found Game Over",
+        "foundArrayOnly",
+        foundArrayOnly,
+        "username",
+        username,
+        "full object",
+        foundArray
+      );
+      const getScore = await gameOver(time, username);
+      console.log("getScores", getScore);
+      const score = getScore.score;
+      return res.json({ score, complete: true });
+    }
+    console.log("found game not over", "foundArrayOnly", foundArrayOnly);
+    return res.json({ foundArrayOnly, found: true, complete: false });
   }
-
+  console.log("fnot found");
   return res.json({ found: false });
 };
 
-// xmin: 775, xmax: 820, ymin: 1150, ymax: 1200
+const populateLeaderboard = async (req, res) => {
+  const highScores = await getHighScores();
+  res.json(highScores);
+};
 
-export { gameStart, submitCoord };
+export { gameStart, submitCoord, populateLeaderboard };

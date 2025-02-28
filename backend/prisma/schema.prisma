@@ -14,16 +14,16 @@ datasource db {
 }
 
 model Games {
-  id         String     @id @default(uuid())
-  createdAt  DateTime   @default(now())
-  clientId   String     @unique
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  clientId   String    @unique
   endTime    String?
-  foundArray Boolean[]  @default([false, false, false])
+  foundArray Boolean[] @default([false, false, false])
+  username   String
 }
 
 model TopGames {
-  id        String   @id @default(uuid())
-  score     String   
-  username  String   
-  place     String   
+  id       String @id @default(uuid())
+  score    String
+  username String
 }

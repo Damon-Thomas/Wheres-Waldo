@@ -18,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="game/:id" element={<Game />} />
       <Route path="rules" element={<Rules />} />
       <Route path="leaderboard" element={<Leaderboard />} />
+      <Route path="game/result/:time" element={<Leaderboard />} />
       <Route path="*" element={<NotFound />} />
     </>
   )

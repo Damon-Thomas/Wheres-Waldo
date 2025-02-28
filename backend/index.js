@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import { submitCoord, gameStart } from "./controllers/gameController.js";
+import { populateLeaderboard } from "./controllers/gameController.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,8 @@ app.get("/api/message", (req, res) => {
 app.post("/api/game/:id", gameStart);
 
 app.post("/api/game/coord/:id", submitCoord);
+
+app.get("/api/leaderboard", populateLeaderboard);
 
 // Serve React frontend in production
 if (process.env.NODE_ENV === "production") {

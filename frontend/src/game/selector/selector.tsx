@@ -62,9 +62,17 @@ export default function Selector({
       }),
     });
     const data = await result.json();
-    if (result.status === 200 && data.found === true) {
-      console.log("found", data.foundArray);
-      setFoundArray(data.foundArray.foundArray);
+    console.log("fetched Data", data);
+    if (result.status === 200 && data.complete === true) {
+      console.log("complete", data);
+      window.location.href = `http://localhost:5173/game/result/${data.score}`;
+    } else if (result.status === 200 && data.found === true) {
+      console.log("found", data.foundArrayOnly);
+      setFoundArray(data.foundArrayOnly);
+      console.log("data", data);
+    } else if (result.status === 200 && data.found === false) {
+      console.log("not found", data.foundArrayOnly);
+      setFoundArray(data.foundArrayOnly);
       console.log("data", data);
     }
   }
