@@ -48,7 +48,12 @@ export default function Selector({
     console.log("submit", selecter, character, "smaller", smaller);
     const time = location.pathname.split("/")[2];
     console.log("time", time);
-    const result = await fetch(`http://localhost:3000/api/game/coord/${time}`, {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!apiUrl) {
+      console.error("REACT_APP_API_URL is not defined");
+      return;
+    }
+    const result = await fetch(`${apiUrl}/api/game/coord/${time}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +70,12 @@ export default function Selector({
     console.log("fetched Data", data);
     if (result.status === 200 && data.complete === true) {
       console.log("complete", data);
-      window.location.href = `http://localhost:5173/game/result/${data.score}`;
+      const apiUrl = import.meta.env.VITE_FE_URL;
+      if (!apiUrl) {
+        console.error("REACT_APP_FE_URL is not defined");
+        return;
+      }
+      window.location.href = `${apiUrl}/game/result/${data.score}`;
     } else if (result.status === 200 && data.found === true) {
       console.log("found", data.foundArrayOnly);
       setFoundArray(data.foundArrayOnly);

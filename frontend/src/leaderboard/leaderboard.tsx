@@ -17,7 +17,12 @@ export default function Leaderboard() {
   );
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/leaderboard`)
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!apiUrl) {
+      console.error("REACT_APP_API_URL is not defined");
+      return;
+    }
+    fetch(`${apiUrl}/api/leaderboard`)
       .then((response) => response.json())
       .then((data) => {
         setLeaderboard(data);

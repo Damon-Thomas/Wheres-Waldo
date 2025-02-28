@@ -11,8 +11,12 @@ export default function Rules() {
     }
 
     const time = Date.now();
-
-    const game = fetch(`http://localhost:3000/api/game/${time}`, {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!apiUrl) {
+      console.error("REACT_APP_API_URL is not defined");
+      return;
+    }
+    const game = fetch(`${apiUrl}/api/game/${time}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
