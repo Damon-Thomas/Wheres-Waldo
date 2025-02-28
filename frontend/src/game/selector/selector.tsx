@@ -3,7 +3,6 @@ import medium from "/medImg.png";
 import hard from "/hardImg.png";
 import "./selector.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 export default function Selector({
   foundArray,
@@ -17,6 +16,7 @@ export default function Selector({
   selecter,
 }: {
   foundArray: boolean[];
+  setFoundArray: React.Dispatch<React.SetStateAction<boolean[]>>;
   widthSetting: number;
   heightSetting: number;
   rightSide: boolean;
@@ -45,7 +45,7 @@ export default function Selector({
     event: React.MouseEvent<HTMLDivElement>,
     character: number
   ) {
-    console.log(selecter, character);
+    console.log("submit", selecter, character, "smaller", smaller);
     const time = location.pathname.split("/")[2];
     console.log("time", time);
     const result = await fetch(`http://localhost:3000/api/game/coord/${time}`, {
@@ -53,7 +53,13 @@ export default function Selector({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ x: selecter.x, y: selecter.y, character, time }),
+      body: JSON.stringify({
+        x: selecter.x,
+        y: selecter.y,
+        character,
+        time,
+        smaller,
+      }),
     });
     const data = await result.json();
     if (result.status === 200 && data.found === true) {
