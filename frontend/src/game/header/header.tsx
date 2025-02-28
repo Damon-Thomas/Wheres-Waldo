@@ -6,11 +6,9 @@ import hard from "/hardImg.png";
 import Timer from "../timer/timer";
 
 export default function Header({
-  timer,
   smaller,
-  foundArray,
+  foundArray = [false, false, false],
 }: {
-  timer: number;
   smaller: boolean;
   foundArray: boolean[];
 }) {
@@ -25,7 +23,10 @@ export default function Header({
     >
       {!smaller ? (
         <div className="title flex justify-center items-center headerSection ">
-          <p className="text-amber-300 text-xl font-bold">Finding Fiasco</p>
+          <p className="text-white text-xl font-bold">
+            <span className="text-amber-300">F</span>inding{" "}
+            <span className="text-amber-300">F</span>iasco
+          </p>
         </div>
       ) : (
         ""

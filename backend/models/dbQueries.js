@@ -41,7 +41,7 @@ const addScore = async (score, username) => {
 
 const gameOver = async (time, username) => {
   const finishTime = Date.now();
-  const score = Math.round((finishTime - time) / 1000).toString();
+  const score = Math.round((finishTime - time) / 1000);
   await addScore(score, username);
   const result = {
     score: score,
@@ -58,4 +58,12 @@ const getHighScores = async () => {
   });
 };
 
-export { createGame, foundCharacter, gameOver, getHighScores };
+const getAllScores = async () => {
+  return await prisma.TopGames.findMany({
+    orderBy: {
+      score: "asc",
+    },
+  });
+};
+
+export { createGame, foundCharacter, gameOver, getHighScores, getAllScores };

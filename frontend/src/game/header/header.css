@@ -10,7 +10,7 @@
 }
 
 .characterImage {
-  @apply bg-cover bg-center w-full h-full flex justify-center items-center  z-10;
+  @apply bg-cover bg-center w-full h-full flex justify-center items-center z-10;
 }
 
 .xText {

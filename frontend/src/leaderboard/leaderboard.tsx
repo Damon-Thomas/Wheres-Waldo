@@ -29,7 +29,7 @@ export default function Leaderboard() {
     <div className="leaderboardMain h-screen w-screen flex flex-col items-center p-4 md:p-8 gap-4 md:gap-8 bg-stone-700 overflow-hidden">
       <div className="leaderboardHeader flex justify-between items-center w-full">
         <a href="/">
-          <button className="w-30 py-2 text-2xl bg-white text-black font-bold flex justify-center items-center al rounded-lg shadow-md hover:bg-amber-300 transition-all duration-300 hover:cursor-pointer">
+          <button className="w-15 md:w-30 py-2 text-lg md:text-2xl bg-white text-black font-bold flex justify-center items-center al rounded-lg shadow-md hover:bg-amber-300 transition-all duration-300 hover:cursor-pointer">
             Home
           </button>
         </a>
@@ -41,15 +41,15 @@ export default function Leaderboard() {
       <div className="gameResults font-extrabold text-2xl text-white">
         {game ? `Your time was: ${gameTime} seconds` : ""}
       </div>
-      <div className="boardBody w-full md:w-2/3  bg-zinc-500 rounded-lg shadow-md overflow-auto">
+      <div className="boardBody w-full md:w-2/3  bg-amber-200 rounded-lg shadow-md overflow-auto">
         <ul className="leaderboardList w-full flex flex-col ">
           {leaderboard.map((entry, index) => {
             return (
               <li
                 key={index}
-                className="leaderboardEntry w-full flex gap-2 items-center px-2  border-b-1 border-black bg-amber-200 shadow-md "
+                className="leaderboardEntry w-full h-15 flex gap-2 items-center px-2  border-b-1 border-black bg-amber-200 shadow-md "
               >
-                <p className="leaderboardRank text-black text-2xl font-extrabold flex justify-baseline py-2 w-10 border-r-1 ">
+                <p className="leaderboardRank text-black text-2xl font-extrabold flex justify-baseline py-2 w-12 border-r-1 ">
                   {index + 1}
                 </p>
                 <p className="leaderboardName text-black w-full text-xl font-bold text-start overflow-hidden py-2 flex align-middle ">

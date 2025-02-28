@@ -14,6 +14,8 @@ function Game() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [rightSide, setRightSide] = useState(true);
   const [bottom, setBottom] = useState(true);
+  const [failureOverlay, setFailureOverlay] = useState(false);
+  const [transitionDuration, setTransitionDuration] = useState(".0001s");
 
   const scrollableRef = useRef<HTMLDivElement>(null);
   let isDown = false;
@@ -48,6 +50,17 @@ function Game() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (failureOverlay) {
+      setTransitionDuration("1s"); // Slow transition for hiding
+      setFailureOverlay(false);
+
+      setTimeout(() => {
+        setTransitionDuration(".0001s"); // Fast transition for showing
+      }, 1000);
+    }
+  }, [failureOverlay]);
 
   function imageClickHandler(event: React.MouseEvent<HTMLAreaElement>) {
     if (isDragging) {
@@ -116,8 +129,12 @@ function Game() {
 
   return (
     <div className="screenWindow h-screen w-screen flex flex-col justify-start items-center overflow-hidden">
-      <Header timer={0} smaller={smaller} foundArray={foundArray} />
+      <Header smaller={smaller} foundArray={foundArray} />
       {/* <div className="headerBar sticky bg-white h-8 w-full top-0"></div> */}
+      <div
+        className={`failureOverlay ${failureOverlay ? "show" : ""}`}
+        style={{ transitionDuration }}
+      ></div>
       <div
         className="relative h-[calc(100vh-2rem)] w-screen overflow-auto scrollbar-gutter-stable cursor-pointer"
         style={{ scrollbarGutter: "stable" }}
@@ -151,10 +168,10 @@ function Game() {
               bottom={bottom}
               smaller={smaller}
               selecter={selecter}
+              setFailureOverlay={setFailureOverlay}
             />
           </div>
         </div>
-
         <img
           className="block z-0"
           style={{

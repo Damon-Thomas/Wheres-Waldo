@@ -2,6 +2,7 @@ import {
   createGame,
   foundCharacter,
   gameOver,
+  getAllScores,
   getHighScores,
 } from "../models/dbQueries.js";
 import validator from "validator";
@@ -121,6 +122,9 @@ const submitCoord = async (req, res) => {
 
 const populateLeaderboard = async (req, res) => {
   const highScores = await getHighScores();
+  const allScores = await getAllScores();
+  console.log("highScores", highScores);
+  console.log("getAllScores", allScores);
   res.json(highScores);
 };
 

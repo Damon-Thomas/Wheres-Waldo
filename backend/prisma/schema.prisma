@@ -24,6 +24,6 @@ model Games {
 
 model TopGames {
   id       String @id @default(uuid())
-  score    String
+  score    Int
   username String
 }

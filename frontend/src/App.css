@@ -1,4 +1,19 @@
+@import "tailwindcss";
 
+.failureOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  box-shadow: inset 0 0 100px 100px rgba(255, 0, 0, 1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity ease-in-out; /* Remove duration */
+}
 
-
-
+.failureOverlay.show {
+  opacity: 1; /* Set opacity to 1 when the overlay is shown */
+}
