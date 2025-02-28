@@ -29,7 +29,6 @@ export default function Selector({
   const [top, setTop] = useState(-4);
 
   useEffect(() => {
-    console.log("rightSide", rightSide, "bottom", bottom, "smaller", smaller);
     if (rightSide) {
       setLeft(smaller ? 46 : 96);
     } else {
@@ -58,7 +57,8 @@ export default function Selector({
     });
     const data = await result.json();
     if (result.status === 200 && data.found === true) {
-      setFoundArray(data.foundArray);
+      console.log("found", data.foundArray);
+      setFoundArray(data.foundArray.foundArray);
       console.log("data", data);
     }
   }

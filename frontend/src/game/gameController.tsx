@@ -10,7 +10,7 @@ function Game() {
   const [height, setHeight] = useState(2480);
   const [selectorWidth, setSelectorWidth] = useState(40);
   const [selectorHeight, setSelectorHeight] = useState(40);
-  const [foundArray, setFoundArray] = useState([true, false, false]);
+  const [foundArray, setFoundArray] = useState([false, false, false]);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [rightSide, setRightSide] = useState(true);
@@ -51,6 +51,7 @@ function Game() {
 
     const clickX = event.clientX - rect.left;
     const clickY = event.clientY + height - rect.top;
+    console.log("coords", "x", clickX, " y", clickY);
     setSelecter({ x: clickX, y: clickY, active: !selecter.active });
 
     if (
