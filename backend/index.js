@@ -1,8 +1,12 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
-import { submitCoord, gameStart } from "./controllers/gameController.js";
-import { populateLeaderboard } from "./controllers/gameController.js";
+import { fileURLToPath } from "url";
+import {
+  submitCoord,
+  gameStart,
+  populateLeaderboard,
+} from "./controllers/gameController.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +28,9 @@ app.get("/api/leaderboard", populateLeaderboard);
 
 // Serve React frontend in production
 if (process.env.NODE_ENV === "production") {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
   app.get("*", (req, res) => {
