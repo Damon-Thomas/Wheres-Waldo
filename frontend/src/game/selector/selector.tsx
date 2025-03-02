@@ -107,11 +107,7 @@ export default function Selector({
               <div className="xText2"> {foundArray[0] ? "X" : ""}</div>
               <div
                 className={`${foundArray[0] ? "overlay" : "hoverLay"}`}
-                onClick={
-                  foundArray[0]
-                    ? undefined
-                    : (event) => imageClickHandler(event, 0)
-                }
+                onClick={foundArray[0] ? undefined : () => imageClickHandler(0)}
               ></div>
             </div>
           </li>
@@ -127,11 +123,7 @@ export default function Selector({
               <div className="xText2"> {foundArray[1] ? "X" : ""}</div>
               <div
                 className={`${foundArray[1] ? "overlay" : "hoverLay"}`}
-                onClick={
-                  foundArray[1]
-                    ? undefined
-                    : (event) => imageClickHandler(event, 1)
-                }
+                onClick={foundArray[1] ? undefined : () => imageClickHandler(1)}
               ></div>
             </div>
           </li>
@@ -147,11 +139,7 @@ export default function Selector({
               <div className="xText2"> {foundArray[2] ? "X" : ""}</div>
               <div
                 className={`${foundArray[2] ? "overlay" : "hoverLay"}`}
-                onClick={
-                  foundArray[2]
-                    ? undefined
-                    : (event) => imageClickHandler(event, 2)
-                }
+                onClick={foundArray[2] ? undefined : () => imageClickHandler(2)}
               ></div>
             </div>
           </li>
