@@ -5,7 +5,7 @@ import Selector from "./selector/selector";
 function Game() {
   const [smaller, setSmaller] = useState(true);
   const [selecter, setSelecter] = useState({ x: 0, y: 0, active: false });
-  const [width, setWidth] = useState(3840);
+  // const [width, setWidth] = useState(3840);
   const [height, setHeight] = useState(2480);
   const [selectorWidth, setSelectorWidth] = useState(40);
   const [selectorHeight, setSelectorHeight] = useState(40);
@@ -31,13 +31,13 @@ function Game() {
 
       if (w > 600) {
         setSmaller(false);
-        setWidth(3840);
+        // setWidth(3840);
         setHeight(2480);
         setSelectorWidth(80);
         setSelectorHeight(80);
       } else {
         setSmaller(true);
-        setWidth(1920);
+        // setWidth(1920);
         setHeight(1240);
         setSelectorWidth(40);
         setSelectorHeight(40);

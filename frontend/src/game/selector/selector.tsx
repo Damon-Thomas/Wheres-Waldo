@@ -42,7 +42,7 @@ export default function Selector({
   }, [rightSide, bottom, smaller]);
 
   async function imageClickHandler(
-    event: React.MouseEvent<HTMLDivElement>,
+    // event: React.MouseEvent<HTMLDivElement>,
     character: number
   ) {
     console.log("submit", selecter, character, "smaller", smaller);
