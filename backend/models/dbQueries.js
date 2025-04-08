@@ -15,7 +15,9 @@ const foundCharacter = async (character, time) => {
       clientId: time,
     },
   });
-
+  if (!game) {
+    throw new Error("Game not found.");
+  }
   console.log("game", game);
   const updatedFoundArray = [...game.foundArray];
   updatedFoundArray[character] = true;
