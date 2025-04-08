@@ -60,7 +60,7 @@ const gameOver = async (time, username) => {
       clientId: time,
     },
     data: {
-      endTime: finishTime,
+      endTime: finishTime.toString(),
     },
   });
 
