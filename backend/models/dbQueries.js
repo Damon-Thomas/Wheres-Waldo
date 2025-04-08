@@ -46,13 +46,14 @@ const gameOver = async (time, username) => {
       clientId: time,
     },
   });
+  console.log("game", game);
   if (!game) {
     throw new Error("Game not found.");
   }
   if (game.endTime) {
     throw new Error("Game already finished.");
   }
-  if (time > finishTime) {
+  if (game.createdAt > finishTime) {
     throw new Error("Invalid time: time cannot be in the future.");
   }
   await prisma.Games.update({
@@ -64,7 +65,7 @@ const gameOver = async (time, username) => {
     },
   });
 
-  const score = Math.max(0, Math.round((finishTime - time) / 1000)); // Ensure score is non-negative
+  const score = Math.max(0, Math.round((finishTime - game.createdAt) / 1000)); // Ensure score is non-negative
   await addScore(score, username);
   const result = {
     score: score,
