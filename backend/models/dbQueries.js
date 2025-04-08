@@ -41,7 +41,12 @@ const addScore = async (score, username) => {
 
 const gameOver = async (time, username) => {
   const finishTime = Date.now();
-  const score = Math.round((finishTime - time) / 1000);
+
+  if (time > finishTime) {
+    throw new Error("Invalid time: time cannot be in the future.");
+  }
+
+  const score = Math.max(0, Math.round((finishTime - time) / 1000)); // Ensure score is non-negative
   await addScore(score, username);
   const result = {
     score: score,
