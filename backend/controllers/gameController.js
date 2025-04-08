@@ -20,11 +20,12 @@ const masterCoordsSmall = {
 };
 
 const gameStart = async (req, res) => {
-  console.log("gameStart", req.body);
-  const { gameId, username } = req.body;
-  console.log("USERNAME", username);
-  const sanUsername = validator.escape(username);
   try {
+    console.log("gameStart", req.body);
+    const { gameId, username } = req.body;
+    console.log("USERNAME", username);
+    const sanUsername = validator.escape(username);
+
     const game = await createGame(gameId.toString(), sanUsername);
     console.log("game created", game);
     res.json(game);
@@ -35,97 +36,107 @@ const gameStart = async (req, res) => {
 };
 
 const submitCoord = async (req, res) => {
-  const { x, y, character, time, smaller } = req.body;
-  console.log("submitCoord", x, y, character, time, smaller);
-  let didFind = false;
-  let foundArray;
-  if (smaller) {
-    if (
-      character === 0 &&
-      x >= masterCoordsSmall.Easy.xmin &&
-      x <= masterCoordsSmall.Easy.xmax &&
-      y >= masterCoordsSmall.Easy.ymin &&
-      y <= masterCoordsSmall.Easy.ymax
-    ) {
-      didFind = true;
-    } else if (
-      character === 1 &&
-      x >= masterCoordsSmall.Med.xmin &&
-      x <= masterCoordsSmall.Med.xmax &&
-      y >= masterCoordsSmall.Med.ymin &&
-      y <= masterCoordsSmall.Med.ymax
-    ) {
-      didFind = true;
-    } else if (
-      character === 2 &&
-      x >= masterCoordsSmall.Hard.xmin &&
-      x <= masterCoordsSmall.Hard.xmax &&
-      y >= masterCoordsSmall.Hard.ymin &&
-      y <= masterCoordsSmall.Hard.ymax
-    ) {
-      didFind = true;
+  try {
+    const { x, y, character, time, smaller } = req.body;
+    console.log("submitCoord", x, y, character, time, smaller);
+    let didFind = false;
+    let foundArray;
+    if (smaller) {
+      if (
+        character === 0 &&
+        x >= masterCoordsSmall.Easy.xmin &&
+        x <= masterCoordsSmall.Easy.xmax &&
+        y >= masterCoordsSmall.Easy.ymin &&
+        y <= masterCoordsSmall.Easy.ymax
+      ) {
+        didFind = true;
+      } else if (
+        character === 1 &&
+        x >= masterCoordsSmall.Med.xmin &&
+        x <= masterCoordsSmall.Med.xmax &&
+        y >= masterCoordsSmall.Med.ymin &&
+        y <= masterCoordsSmall.Med.ymax
+      ) {
+        didFind = true;
+      } else if (
+        character === 2 &&
+        x >= masterCoordsSmall.Hard.xmin &&
+        x <= masterCoordsSmall.Hard.xmax &&
+        y >= masterCoordsSmall.Hard.ymin &&
+        y <= masterCoordsSmall.Hard.ymax
+      ) {
+        didFind = true;
+      }
+    } else {
+      if (
+        character === 0 &&
+        x >= masterCoordsLarge.Easy.xmin &&
+        x <= masterCoordsLarge.Easy.xmax &&
+        y >= masterCoordsLarge.Easy.ymin &&
+        y <= masterCoordsLarge.Easy.ymax
+      ) {
+        didFind = true;
+      } else if (
+        character === 1 &&
+        x >= masterCoordsLarge.Med.xmin &&
+        x <= masterCoordsLarge.Med.xmax &&
+        y >= masterCoordsLarge.Med.ymin &&
+        y <= masterCoordsLarge.Med.ymax
+      ) {
+        didFind = true;
+      } else if (
+        character === 2 &&
+        x >= masterCoordsLarge.Hard.xmin &&
+        x <= masterCoordsLarge.Hard.xmax &&
+        y >= masterCoordsLarge.Hard.ymin &&
+        y <= masterCoordsLarge.Hard.ymax
+      ) {
+        didFind = true;
+      }
     }
-  } else {
-    if (
-      character === 0 &&
-      x >= masterCoordsLarge.Easy.xmin &&
-      x <= masterCoordsLarge.Easy.xmax &&
-      y >= masterCoordsLarge.Easy.ymin &&
-      y <= masterCoordsLarge.Easy.ymax
-    ) {
-      didFind = true;
-    } else if (
-      character === 1 &&
-      x >= masterCoordsLarge.Med.xmin &&
-      x <= masterCoordsLarge.Med.xmax &&
-      y >= masterCoordsLarge.Med.ymin &&
-      y <= masterCoordsLarge.Med.ymax
-    ) {
-      didFind = true;
-    } else if (
-      character === 2 &&
-      x >= masterCoordsLarge.Hard.xmin &&
-      x <= masterCoordsLarge.Hard.xmax &&
-      y >= masterCoordsLarge.Hard.ymin &&
-      y <= masterCoordsLarge.Hard.ymax
-    ) {
-      didFind = true;
+    console.log("didFind", didFind);
+    if (didFind) {
+      foundArray = await foundCharacter(character, time);
+      const foundArrayOnly = foundArray.foundArray;
+      const username = foundArray.username;
+      const gameOverBool = foundArrayOnly.every((found) => found);
+      if (gameOverBool) {
+        console.log(
+          "found Game Over",
+          "foundArrayOnly",
+          foundArrayOnly,
+          "username",
+          username,
+          "full object",
+          foundArray
+        );
+        const getScore = await gameOver(time, username);
+        console.log("getScores", getScore);
+        const score = getScore.score;
+        return res.json({ score, complete: true });
+      }
+      console.log("found game not over", "foundArrayOnly", foundArrayOnly);
+      return res.json({ foundArrayOnly, found: true, complete: false });
     }
+    console.log("fnot found");
+    return res.json({ found: false });
+  } catch (error) {
+    console.log("error", error);
+    res.json({ error: error.message });
   }
-  console.log("didFind", didFind);
-  if (didFind) {
-    foundArray = await foundCharacter(character, time);
-    const foundArrayOnly = foundArray.foundArray;
-    const username = foundArray.username;
-    const gameOverBool = foundArrayOnly.every((found) => found);
-    if (gameOverBool) {
-      console.log(
-        "found Game Over",
-        "foundArrayOnly",
-        foundArrayOnly,
-        "username",
-        username,
-        "full object",
-        foundArray
-      );
-      const getScore = await gameOver(time, username);
-      console.log("getScores", getScore);
-      const score = getScore.score;
-      return res.json({ score, complete: true });
-    }
-    console.log("found game not over", "foundArrayOnly", foundArrayOnly);
-    return res.json({ foundArrayOnly, found: true, complete: false });
-  }
-  console.log("fnot found");
-  return res.json({ found: false });
 };
 
 const populateLeaderboard = async (req, res) => {
-  const highScores = await getHighScores();
-  const allScores = await getAllScores();
-  console.log("highScores", highScores);
-  console.log("getAllScores", allScores);
-  res.json(highScores);
+  try {
+    const highScores = await getHighScores();
+    const allScores = await getAllScores();
+    console.log("highScores", highScores);
+    console.log("getAllScores", allScores);
+    res.json(highScores);
+  } catch (error) {
+    console.log("error", error);
+    res.json({ error: error.message });
+  }
 };
 
 export { gameStart, submitCoord, populateLeaderboard };
