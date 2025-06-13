@@ -29,6 +29,19 @@ This game is for educational purposes and will not be maintained.
 
 ---
 
+## Screenshots
+
+<div align="center">
+  <img src="./screenshots/wheres-waldo-home.png" alt="Home Page" width="350" style="margin-right: 20px; display: inline-block; vertical-align: top;"/>
+  <img src="./screenshots/wheres-waldo-leaderboard.png" alt="Leaderboard Page" width="350" style="display: inline-block; vertical-align: top;"/>
+</div>
+
+<div align="center" style="margin-top: 30px;">
+  <img src="./screenshots/wheres-waldo-game.png" alt="Game Page" width="500"/>
+</div>
+
+---
+
 ## Lessons Learned
 
 - **Coordinate Adjustments**  
